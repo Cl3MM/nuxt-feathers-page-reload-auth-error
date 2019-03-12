@@ -59,7 +59,7 @@ export default {
     logoot() {
       console.log('login out....')
       this.logout().then(_ => {
-        this.$router.push('/?prout')
+        this.$router.push('/')
       })
     },
     reload() {

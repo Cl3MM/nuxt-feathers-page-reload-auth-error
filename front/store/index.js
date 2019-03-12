@@ -9,7 +9,7 @@ let _plugins = []
 
 // Create services for the browser
 if (process.client) {
-  const browserClient = feathersClient('PROUT', new CookieStorage())
+  const browserClient = feathersClient('', new CookieStorage())
   const {
     service: browserService,
     auth: browserAuth,
