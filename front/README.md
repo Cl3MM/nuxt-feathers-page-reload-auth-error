@@ -9,5 +9,5 @@ $ yarn run dev
 
 # terminal 2
 $ cd server && yarn install
-$ cd server && yarn run dev
+$ yarn run dev
 ```
