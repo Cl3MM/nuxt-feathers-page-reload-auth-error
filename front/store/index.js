@@ -1,3 +1,4 @@
+import url from 'url'
 import Vue from 'vue'
 import feathersVuex, { initAuth } from 'feathers-vuex'
 import { CookieStorage } from 'cookie-storage'
@@ -36,20 +37,16 @@ export const state = () => ({})
 export const actions = {
   nuxtServerInit({ commit, dispatch, state }, { req, store }) {
     console.log('==== NUXT SERVER INIT ====')
-    let origin = req.headers.host.split(':')
-    origin = `http://${origin[0]}`
+    // eslint-disable-next-line node/no-deprecated-api
+    const parsedUrl = url.parse(req.headers.host)
+    const origin = `${parsedUrl.protocol}//${parsedUrl.hostname}`
 
     const storage = {
-      getItem(key) {
-        return store.state.auth ? store.state.auth.accessToken : ''
-      },
-      setItem(key, value) {
-        store.state.auth.accessToken = value
-      },
-      removeItem(key) {
-        store.state.auth.accessToken = null
-      }
+      getItem() {},
+      setItem() {},
+      removeItem() {}
     }
+
     // Create a new client for the server
     const client = feathersClient(origin, storage)
     const { service, auth } = feathersVuex(client, {
@@ -82,6 +79,7 @@ export const actions = {
           .then(res => {
             console.log('auth/authenticate')
             console.log(res)
+            return dispatch('users/find', {})
           })
           .catch(e => {
             console.error('---- AUTHENTIcAtE ERROR ----')
