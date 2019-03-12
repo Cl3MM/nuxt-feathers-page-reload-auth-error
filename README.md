@@ -15,20 +15,18 @@ $ yarn run dev
 
 ## Bug reproduction
 
-- Point your browser to http://localhost:3000
+1. Point your browser to http://localhost:3000  
+   Note the yellow `Public secret` tag next to each message  
+   _if you don't see any message, restart the server_
 
-  Note the `Public secret` yellow tag next to each message
+2. Go to the login page `http://localhost:3000/login`
 
-  _if you don't see any message, restart the server_
+3. Login with credentials `admin@example.com` / `admin`  
+   Note the `My personal secret` green tag next to each message
 
-- Go to the login page `http://localhost:3000/login`
-- Login with credentials `admin@example.com` / `admin`
-
-  Note the `My personal secret` green tag next to each message
-
-- Reload the page (ctr+R or F5 or whatever)
-- Note the yellow tags
-- Scream in despair :( :'(
+4. Reload the page (Ctrl+R or F5 or whatever)
+5. Note the yellow f\* tags
+6. Scream in despair :( :'(
 
 ## Credits
 
