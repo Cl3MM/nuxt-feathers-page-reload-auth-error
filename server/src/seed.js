@@ -48,28 +48,30 @@ const wait = async () =>
   })
 
 const cleanUp = async app => {
-  // User.remove({}, { multi: true }, err => {
-  //   if (err) {
-  //     return reject(err)
-  //   }
-  //   Secret.remove({}, { multi: true }, (err, numRemoved) => {
-  //     return err ? reject(err) : resolve(numRemoved)
-  //   })
-  // })
-  const dbPath = app.get('nedb')
-  let dbFile = path.join(dbPath, 'users.db')
-  await fs.outputFile(dbFile, '')
-  dbFile = path.join(dbPath, 'secrets.db')
-  await fs.outputFile(dbFile, '')
+  return new Promise((resolve, reject) => {
+    User.remove({}, { multi: true }, err => {
+      if (err) {
+        return reject(err)
+      }
+      Secret.remove({}, { multi: true }, (err, numRemoved) => {
+        return err ? reject(err) : resolve(numRemoved)
+      })
+    })
+  })
+  // const dbPath = app.get('nedb')
+  // let dbFile = path.join(dbPath, 'users.db')
+  // await fs.outputFile(dbFile, '')
+  // dbFile = path.join(dbPath, 'secrets.db')
+  // await fs.outputFile(dbFile, '')
 }
 
 module.exports = async function(app) {
+  User = require('./models/users.model')(app)
+  Secret = require('./models/secrets.model')(app)
+
   await wait()
   await cleanUp(app)
   await wait()
-
-  User = require('./models/users.model')(app)
-  Secret = require('./models/secrets.model')(app)
 
   let promises = ['admin', 'user']
     .map(async (label, idx) => {

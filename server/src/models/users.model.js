@@ -5,8 +5,8 @@ module.exports = function(app) {
   const dbPath = app.get('nedb')
   const Model = new NeDB({
     filename: path.join(dbPath, 'users.db'),
-    autoload: true
-    // inMemoryOnly: true,
+    autoload: true,
+    inMemoryOnly: true
   })
 
   Model.ensureIndex({ fieldName: 'email', unique: true })
