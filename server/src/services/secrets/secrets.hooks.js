@@ -19,7 +19,8 @@ module.exports = {
           console.log('Authenticated')
 
           Object.assign(context.params.query, {
-            userId: { $in: [context.params.user._id, null] }
+            userId: context.params.user._id
+            // userId: { $in: [context.params.user._id, null] }
           })
           return context
         }
