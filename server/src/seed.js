@@ -73,50 +73,34 @@ module.exports = async function(app) {
   await cleanUp(app)
   await wait()
 
-  let promises = ['admin', 'user']
-    .map(async (label, idx) => {
-      const hash = await hasher(label)
-      const email = `${label}@example.com`
+  const userService = app.service('users')
+  const msgService = app.service('secrets')
 
-      return new Promise((resolve, reject) => {
-        User.insert(
-          {
-            email: email,
-            password: hash
-          },
-          (err, u) => {
-            if (err) {
-              return reject(err)
-            }
-            console.log(`user inserted (${u.email}), inserting secrets`)
-            rndAr().map(a => {
-              Secret.insert(
-                {
-                  title: loremIpsum({
-                    count: 1,
-                    sentenceLowerBound: 4,
-                    sentenceUpperBound: 10,
-                    units: 'sentences'
-                  }),
-                  message: loremIpsum({
-                    units: 'paragraphs'
-                  }),
-                  userId: u._id
-                },
-                (err, msg) => {
-                  console.log('secret inserted: ')
-                  return err ? reject(err) : resolve(msg)
-                }
-              )
-            })
-          }
-        )
+  const promises = ['admin', 'user']
+    .map(async u => {
+      const user = await userService.create({
+        email: `${u}@example.com`,
+        password: u
       })
+      return rndAr().map(() =>
+        msgService.create({
+          title: loremIpsum({
+            count: 1,
+            sentenceLowerBound: 4,
+            sentenceUpperBound: 10,
+            units: 'sentences'
+          }),
+          message: loremIpsum({
+            units: 'paragraphs'
+          }),
+          userId: user._id
+        })
+      )
     })
     .concat(
       rndAr(3).map(a => {
         return new Promise((resolve, reject) => {
-          Secret.insert(
+          msgService.create(
             {
               title: loremIpsum({
                 count: 1,

@@ -37,7 +37,7 @@ module.exports = {
       }
     ],
     get: [authenticate('jwt')],
-    create: [authenticate('jwt')],
+    create: [],
     update: [authenticate('jwt')],
     patch: [authenticate('jwt')],
     remove: [authenticate('jwt')]
