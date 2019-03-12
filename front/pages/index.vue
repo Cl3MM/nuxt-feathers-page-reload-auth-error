@@ -6,8 +6,6 @@
           .level-left
             .level-item
               nuxt-link(to="/connexion") Login
-              | &nbsp;&nbsp;|&nbsp;&nbsp;
-              nuxt-link(to="/sts") STS
           .level-item.has-text-centered
             button.button.is-primary.is-fluid(@click.stop="reload", :class="{'is-loading': isFindPending}") Reload
           .level-right(v-if="payload")
@@ -36,7 +34,6 @@ export default {
     ...mapState('secrets', { isFindPending: 'isFindPending' }),
     ...mapGetters('secrets', {
       findSecretsInStore: 'find'
-      // secrets: 'list'
     }),
     secretsParams() {
       if (this.user) {
@@ -44,9 +41,6 @@ export default {
       }
       return { query: {} }
     }
-    // secrets() {
-    //   return this.findSecretsInStore(this.secretsParams).data
-    // }
   },
   watch: {
     user: function(val) {
