@@ -6,6 +6,10 @@
           .level-left
             .level-item
               nuxt-link(to="/connexion") Login
+              | &nbsp;&nbsp;|&nbsp;&nbsp;
+              nuxt-link(to="/sts") STS
+          .level-item.has-text-centered
+            button.button.is-primary.is-fluid(@click.stop="reload", :class="{'is-loading': isFindPending}") Reload
           .level-right(v-if="payload")
             .level-item
               a(@click.stop="logoot") Logout ({{ user.email }})
@@ -29,7 +33,7 @@ export default {
   data: () => ({ secrets: [] }),
   computed: {
     ...mapState('auth', ['isAuthenticatePending', 'payload', 'user']),
-    // ...mapState('secrets', ['isFindPending']),
+    ...mapState('secrets', { isFindPending: 'isFindPending' }),
     ...mapGetters('secrets', {
       findSecretsInStore: 'find'
       // secrets: 'list'
@@ -47,18 +51,12 @@ export default {
   watch: {
     user: function(val) {
       console.log('finding secrets....')
-      this.findSecrets().then(res => {
-        console.log('secrets fetched from server')
-        console.log(res)
-        this.secrets = res.data || []
-      })
+      this.reload()
     }
   },
   mounted() {
     console.log('MOUNTING the mountain')
-    this.findSecrets().then(res => {
-      this.secrets = res.data || []
-    })
+    this.reload()
   },
   methods: {
     ...mapActions('auth', ['authenticate', 'logout']),
@@ -67,6 +65,17 @@ export default {
       console.log('login out....')
       this.logout().then(_ => {
         this.$router.push('/?prout')
+      })
+    },
+    reload() {
+      const q = this.user
+        ? {
+            user: this.user
+          }
+        : {}
+      this.findSecrets(q).then(res => {
+        console.log('secrets fetched from server')
+        this.secrets = res.data || []
       })
     }
   }
