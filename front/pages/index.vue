@@ -5,7 +5,7 @@
         .level
           .level-left
             .level-item
-              nuxt-link(to="/connexion") Login
+              nuxt-link(to="/login") Login
           .level-item.has-text-centered
             button.button.is-primary.is-fluid(@click.stop="reload", :class="{'is-loading': isFindPending}") Reload
           .level-right(v-if="payload")
@@ -17,7 +17,8 @@
           .column.is-4(v-for="secret in secrets", :key="secret._id")
             .box.is-fullheight
               .content
-                span.tag(v-if="secret.userId") My secret
+                span.tag.is-primary(v-if="secret.userId") My personal secret
+                span.tag.is-warning(v-else) Public secret
                 p
                   strong {{ secret.title }}
                 p {{ secret.message.slice(0, 160) }} ...
