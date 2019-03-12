@@ -3,13 +3,15 @@ const createService = require('feathers-nedb')
 const createModel = require('../../models/users.model')
 const hooks = require('./users.hooks')
 
-module.exports = function(app) {
+module.exports = function (app) {
   const Model = createModel(app)
   const paginate = app.get('paginate')
 
   const options = {
     Model,
-    paginate
+    paginate,
+    // Allow multi for the seed to clear this should be removed for production
+    multi: true
   }
 
   // Initialize our service with any options it requires

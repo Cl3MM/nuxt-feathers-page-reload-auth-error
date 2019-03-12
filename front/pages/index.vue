@@ -22,7 +22,7 @@
                 p
                   strong {{ secret.title }}
                 p {{ secret.message.slice(0, 160) }} ...
-          
+
 </template>
 
 <script>
@@ -65,10 +65,10 @@ export default {
     reload() {
       const q = this.user
         ? {
-            user: this.user
+            userId: this.user._id
           }
         : {}
-      this.findSecrets(q).then(res => {
+      this.findSecrets({ query: q }).then(res => {
         console.log('secrets fetched from server')
         this.secrets = res.data || []
       })

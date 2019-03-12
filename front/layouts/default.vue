@@ -4,6 +4,19 @@
   </div>
 </template>
 
+<script>
+import { mapActions } from 'vuex'
+
+export default {
+  mounted() {
+    this.authenticate().catch(e => {})
+  },
+  methods: {
+    ...mapActions('auth', ['authenticate', 'logout'])
+  }
+}
+</script>
+
 <style>
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
