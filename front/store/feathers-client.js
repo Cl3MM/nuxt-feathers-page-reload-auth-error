@@ -14,7 +14,11 @@ export default (origin, storage) => {
   })
 
   const feathersClient = feathers()
-    .configure(socketio(socket))
+    .configure(
+      socketio(socket, {
+        timeout: 1000 * 60 * 10 // 10min timeout
+      })
+    )
     .configure(auth({ storage }))
 
   return feathersClient
