@@ -1,4 +1,4 @@
-# Nuxt & Feathers Not Authenticated on page reload Error
+# Nuxt & Feathers SSR models are not \$FeathersVuex instances
 
 ## Build Setup
 
@@ -15,18 +15,18 @@ $ yarn run dev
 
 ## Bug reproduction
 
-1. Point your browser to http://localhost:3000  
+1. Point your browser to http://localhost:9999  
    Note the yellow `Public secret` tag next to each message  
    _if you don't see any message, restart the server_
 
-2. Go to the login page `http://localhost:3000/login`
+2. Go to the login page `http://localhost:9999/login`
 
-3. Login with credentials `admin@example.com` / `admin`  
-   Note the `My personal secret` green tag next to each message
-
-4. Reload the page (Ctrl+R or F5 or whatever)
-5. Note the yellow f\* tags
-6. Scream in despair :( :'(
+3. Login with credentials `admin@example.com` / `admin`
+4. On the index page, click on the `Edit User` button to go to `http://localhost:9999/0`
+5. Reload the page (Ctrl+R or F5 or whatever)
+6. F!#?@!\$ ☠ 💀💩👻💣💥 Error
+7. ![F!#?@!$ Error](https://raw.githubusercontent.com/Cl3MM/nuxt-feathers-page-reload-auth-error/master/front/assets/error.png)
+8. Scream in despair :( :'(
 
 ## Credits
 
