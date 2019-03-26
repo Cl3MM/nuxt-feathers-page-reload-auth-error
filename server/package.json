@@ -42,7 +42,7 @@
     "compression": "^1.7.3",
     "cors": "^2.8.5",
     "feathers-hooks-common": "^4.20.7",
-    "feathers-nedb": "^4.0.0",
+    "feathers-memory": "^3.0.0",
     "fs-extra": "^7.0.1",
     "helmet": "^3.15.0",
     "lorem-ipsum": "^1.0.6",
