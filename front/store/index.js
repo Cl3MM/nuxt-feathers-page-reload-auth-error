@@ -15,7 +15,7 @@ if (process.client) {
     service: browserService,
     auth: browserAuth,
     FeathersVuex
-  } = feathersVuex(browserClient, { idField: '_id', enableEvents: false })
+  } = feathersVuex(browserClient, { idField: '_id', enableEvents: true })
   Vue.use(FeathersVuex)
 
   _plugins = [
@@ -23,7 +23,7 @@ if (process.client) {
       autoRemove: true,
       replaceItems: true
     }),
-    browserService('users', { paginate: true }),
+    browserService('users'),
     browserAuth({
       userService: 'users'
     })
@@ -51,14 +51,14 @@ export const actions = {
     const client = feathersClient(origin, storage)
     const { service, auth } = feathersVuex(client, {
       idField: '_id',
-      enableEvents: false
+      enableEvents: true
     })
     service('secrets', {
       autoRemove: true,
       replaceItems: true
     })(store)
     // Register services for the server
-    service('users', { paginate: true })(store)
+    service('users')(store)
     auth({
       userService: 'users'
     })(store)
