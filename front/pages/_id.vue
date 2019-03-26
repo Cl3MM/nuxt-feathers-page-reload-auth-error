@@ -10,6 +10,14 @@
             .level-item
               a.button.is-light(@click.stop="logoot") Logout ({{ user.email }})
       pre {{ user }}
+      .form(v-if="user")
+        b-field.mt-15(grouped)
+          b-field(expanded, label="Name")
+            b-input(type='text', placeholder="Name", v-model="user.name", name="name", :value="user.name" )
+        button.button.is-primary(@click="updateMeName")
+          b-icon(icon="refresh", size="is-small")
+          span Update
+
 </template>
 
 <script>
@@ -23,15 +31,16 @@ export default {
 
     const { User } = this.$FeathersVuex
 
-    let user = User.getFromStore(this.id)
-
-    if (!user) {
-      user = User.getFromStore(this.id)
+    User.get(this.id).then(user => {
       return this.get(this.id).then(user => {
-        this.user = user.clone()
+        try {
+          this.user = user.clone()
+        } catch (e) {
+          console.error(e)
+          this.user = new User(user, { isClone: true })
+        }
       })
-    }
-    this.user = user.clone()
+    })
   },
   methods: {
     ...mapActions('users', ['get']),
@@ -42,6 +51,10 @@ export default {
       this.logout().then(_ => {
         this.$router.push('/')
       })
+    },
+    updateMeName() {
+      this.user.commit()
+      this.user.save()
     }
   }
 }
