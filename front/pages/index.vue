@@ -5,19 +5,21 @@
         .level
           .level-left
             .level-item
-              nuxt-link(to="/login") Login
+              nuxt-link.button.is-light(v-if="!user", to="/login") Login
+              //- span(v-if="user") &nbsp; | &nbsp;
+              nuxt-link.button.is-light(v-if="user", :to="'/' + user._id") Edit User
           .level-item.has-text-centered
-            button.button.is-primary.is-fluid(@click.stop="reload", :class="{'is-loading': isFindPending}") Reload
-          .level-right(v-if="payload")
+            button.button.is-primary.is-fluid(@click.stop="reload", :class="{'is-loading': isFindPending}") Reload from store
+          .level-right(v-if="user")
             .level-item
-              a(@click.stop="logoot") Logout ({{ user.email }})
+              a.button.is-light(@click.stop="logoot") Logout ({{ user.email }})
 
       transition(name="fade")
         .columns.is-multiline(v-if="secrets[0]")
-          .column.is-4(v-for="secret in secrets", :key="secret._id")
+          .column.is-4(v-for="secret in rndSecrets", :key="secret._id")
             .box.is-fullheight
               .content
-                span.tag.is-primary(v-if="secret.userId") My personal secret
+                span.tag.is-primary(v-if="user && secret.userId === user._id") My personal secret
                 span.tag.is-warning(v-else) Public secret
                 p
                   strong {{ secret.title }}
@@ -41,6 +43,9 @@ export default {
         return { query: {} }
       }
       return { query: {} }
+    },
+    rndSecrets() {
+      return this.shuffle(this.secrets.slice(0))
     }
   },
   watch: {
@@ -61,6 +66,13 @@ export default {
       this.logout().then(_ => {
         this.$router.push('/')
       })
+    },
+    shuffle(a) {
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[a[i], a[j]] = [a[j], a[i]]
+      }
+      return a
     },
     reload() {
       const q = this.user
