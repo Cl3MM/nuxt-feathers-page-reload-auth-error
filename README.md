@@ -24,9 +24,9 @@ $ yarn run dev
 3. Login with credentials `admin@example.com` / `admin`
 4. On the index page, click on the `Edit User` button to go to `http://localhost:9999/0`
 5. Reload the page (Ctrl+R or F5 or whatever)
-6. F!#?@!\$ ☠ 💀💩👻💣💥 Error
-7. ![F!#?@!$ Error](https://raw.githubusercontent.com/Cl3MM/nuxt-feathers-page-reload-auth-error/master/front/assets/error.png)
-8. Scream in despair :( :'(
+6. F!#?@!\$ ☠ 💀💩👻💣💥 Error  
+   ![F!#?@!$ Error](https://raw.githubusercontent.com/Cl3MM/nuxt-feathers-page-reload-auth-error/master/front/assets/error.png)
+7. Scream in despair :( :'(
 
 ## Credits
 
