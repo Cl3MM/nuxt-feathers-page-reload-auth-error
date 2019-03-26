@@ -6,10 +6,8 @@
 import { mapActions } from 'vuex'
 
 export default {
-  created() {
-    if (process.browser) {
-      this.authenticate().catch(_ => {})
-    }
+  mounted() {
+    this.authenticate().catch(_ => {})
   },
   methods: {
     ...mapActions('auth', ['authenticate'])
