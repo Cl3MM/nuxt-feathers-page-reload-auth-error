@@ -13,14 +13,11 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   // eslint-disable-next-line vue/require-prop-types
   data: () => ({ id: null, user: null }),
-  computed: {
-    ...mapState('auth', ['isAuthenticatePending', 'payload', 'user'])
-  },
   mounted() {
     this.id = this.$route.params.id
 
