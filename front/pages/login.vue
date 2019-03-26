@@ -23,7 +23,7 @@
                 | Login
 
           p.has-text-primary
-            nuxt-link(to='/') Home ?
+            nuxt-link(to='/') Home
             //- |  &nbsp;&middot;&nbsp;
             //- a(href='../') Besoin d'aide ?
 </template>
@@ -42,7 +42,8 @@ export default {
   computed: {
     ...mapState('auth', ['isAuthenticatePending', 'payload']),
     isValid() {
-      return this.email && this.password
+      // return this.email && this.password
+      return true
     }
   },
   mounted() {
