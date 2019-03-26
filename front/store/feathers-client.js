@@ -9,8 +9,7 @@ export default (origin, storage) => {
   const socket = io(host, {
     transports: ['websocket'],
     extraHeaders: {
-      origin: origin || '',
-      zboub: 'booobs'
+      origin: origin || ''
     }
   })
 
